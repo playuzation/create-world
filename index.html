@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create World · 바이옴 맵</title>
+    <meta name="description" content="여러 노이즈와 벡터 노이즈로 만드는 512×512 블록 바이옴 지도" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <h1>Create World</h1>
+        <p>512 × 512 블록 바이옴 맵 · 위에서 내려다본 격자</p>
+      </div>
+      <form id="controls" class="controls" autocomplete="off">
+        <label class="seed">
+          <span>시드</span>
+          <input id="seed" name="seed" type="text" spellcheck="false" />
+        </label>
+        <button type="button" id="random" title="무작위 시드">🎲</button>
+        <button type="submit" id="generate" class="primary">생성</button>
+        <div class="segmented" role="radiogroup" aria-label="보기">
+          <button type="button" data-mode="blocks" aria-pressed="true">블록</button>
+          <button type="button" data-mode="biomes" aria-pressed="false">바이옴</button>
+        </div>
+        <div class="zoom">
+          <button type="button" id="zoom-out" title="축소">−</button>
+          <span id="zoom-label">1×</span>
+          <button type="button" id="zoom-in" title="확대">+</button>
+          <button type="button" id="zoom-fit" title="화면에 맞춤">맞춤</button>
+        </div>
+        <button type="button" id="download" title="현재 보기를 PNG로 저장">PNG</button>
+      </form>
+    </header>
+
+    <main class="layout">
+      <section class="stage">
+        <div class="viewport" id="viewport">
+          <canvas id="map" width="512" height="512"></canvas>
+        </div>
+        <div class="busy" id="busy" hidden>생성 중…</div>
+      </section>
+
+      <aside class="panel">
+        <div class="probe" id="probe">
+          <div class="probe-row"><span>좌표</span><b id="probe-xy">–</b></div>
+          <div class="probe-row"><span>블록</span><b id="probe-block">–</b></div>
+          <div class="probe-row"><span>바이옴</span><b id="probe-biome">–</b></div>
+        </div>
+        <p class="meta" id="meta"></p>
+        <div class="legend-head">
+          <h2 id="legend-title">블록 분포</h2>
+          <button type="button" id="clear-highlight" hidden>강조 해제</button>
+        </div>
+        <p class="hint">항목을 누르면 지도에서 그 분포만 강조합니다.</p>
+        <ul class="legend" id="legend"></ul>
+      </aside>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
